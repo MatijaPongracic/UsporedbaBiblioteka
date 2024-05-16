@@ -7,7 +7,8 @@ import time
 interpreter = tf.lite.Interpreter(model_path = "3.tflite")
 interpreter.allocate_tensors()
 
-folders = ["baseball", "baseball", "guitar", "jumpingJacks", "bowling", "jumpingRope"]
+folders = ["videos\\baseball", "videos\\baseball", "videos\\guitar",
+           "videos\\jumpingJacks", "videos\\bowling", "videos\\jumpingRope"]
 attempts = 0
 
 for video in folders:

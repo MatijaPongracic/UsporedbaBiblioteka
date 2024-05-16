@@ -12,11 +12,11 @@ interpreter = tf.lite.Interpreter(model_path = "4.tflite")
 interpreter.allocate_tensors()
 
 tolerance = 0.1
-videos = {"baseball":"0005.mat",
-          "jumpingJacks":"1083.mat",
-          "guitar":"1951.mat",
-          "bowling":"0532.mat",
-          "jumpingRope":"0989.mat"}
+videos = {"videos\\baseball":"matdata\\0005.mat",
+          "videos\\jumpingJacks":"matdata\\1083.mat",
+          "videos\\guitar":"matdata\\1951.mat",
+          "videos\\bowling":"matdata\\0532.mat",
+          "videos\\jumpingRope":"matdata\\0989.mat"}
 
 for key, value in videos.items():
     mat_file_path = value
@@ -31,18 +31,18 @@ for key, value in videos.items():
     dimensions = mat_data["dimensions"]
     nframes = mat_data["nframes"]
 
-    joint_match = {1:6, #lijevo rame
-                   2:5, #desno rame
-                   3:8, #lijevi lakat
-                   4:7, #desni lakat
-                   5:10, #lijevi zglob
-                   6:9, #desni zglob
-                   7:12, #lijevi kuk
-                   8:11, #desni kuk
-                   9:14, #lijevo koljeno
-                   10:13, #desno koljeno
-                   11:16, #lijevi glezanj
-                   12:15} #desni glezanj
+    joint_match = {1:6, #desno rame
+                   2:5, #lijevo rame
+                   3:8, #desni lakat
+                   4:7, #lijevi lakat
+                   5:10, #desni zglob
+                   6:9, #lijevi zglob
+                   7:12, #desni kuk
+                   8:11, #lijevi kuk
+                   9:14, #desno koljeno
+                   10:13, #lijevo koljeno
+                   11:16, #desni glezanj
+                   12:15} #lijevi glezanj
 
     frame_files = [f for f in os.listdir(key)]
     input_details = interpreter.get_input_details()
@@ -76,7 +76,7 @@ for key, value in videos.items():
         if visibility[i, 8] == 0:
             dt = distance(x[i, 1], y[i, 1], x[i, 2], y[i, 2])  # udaljenost lijevog i desnog ramena
         else:
-            dt = distance(x[i, 1], y[i, 1], x[i, 8], y[i, 8])  # udaljenost lijevog ramena i desnog kuka
+            dt = distance(x[i, 1], y[i, 1], x[i, 8], y[i, 8])  # udaljenost desnog ramena i lijevog kuka
 
         for key1, value1 in joint_match.items():
             if visibility[i, key1] == 0:

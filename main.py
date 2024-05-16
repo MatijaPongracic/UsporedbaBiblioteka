@@ -1,3 +1,5 @@
+#accuracyMP
+
 import os
 import cv2
 import mediapipe as mp
@@ -12,11 +14,11 @@ mp_pose = mp.solutions.pose
 pose_model = mp_pose.Pose(static_image_mode = True, min_detection_confidence = 0.5)
 
 tolerance = 0.1
-videos = {"baseball":"0005.mat",
-          "jumpingJacks":"1083.mat",
-          "guitar":"1951.mat",
-          "bowling":"0532.mat",
-          "jumpingRope":"0989.mat"}
+videos = {"videos\\baseball":"matdata\\0005.mat",
+          "videos\\jumpingJacks":"matdata\\1083.mat",
+          "videos\\guitar":"matdata\\1951.mat",
+          "videos\\bowling":"matdata\\0532.mat",
+          "videos\\jumpingRope":"matdata\\0989.mat"}
 
 for key, value in videos.items():
     mat_file_path = value
@@ -31,18 +33,18 @@ for key, value in videos.items():
     dimensions = mat_data["dimensions"]
     nframes = mat_data["nframes"]
 
-    joint_match = {1:12, #lijevo rame
-                   2:11, #desno rame
-                   3:14, #lijevi lakat
-                   4:13, #desni lakat
-                   5:16, #lijevi zglob
-                   6:15, #desni zglob
-                   7:24, #lijevi kuk
-                   8:23, #desni kuk
-                   9:26, #lijevo koljeno
-                   10:25, #desno koljeno
-                   11:28, #lijevi glezanj
-                   12:27} #desni glezanj
+    joint_match = {1:12, #desno rame
+                   2:11, #lijevo rame
+                   3:14, #desni lakat
+                   4:13, #lijevi lakat
+                   5:16, #desni zglob
+                   6:15, #lijevi zglob
+                   7:24, #desni kuk
+                   8:23, #lijevi kuk
+                   9:26, #desno koljeno
+                   10:25, #lijevo koljeno
+                   11:28, #desni glezanj
+                   12:27} #lijevi glezanj
 
     frame_files = [f for f in os.listdir(key)]
 
@@ -64,10 +66,7 @@ for key, value in videos.items():
 
         for j, landmark in enumerate(results.pose_landmarks.landmark):
             height, width, _ = image.shape
-            if landmark.visibility < 0.7:
-                cx, cy = 0.0, 0.0
-            else:
-                cx, cy = int(landmark.x * width), int(landmark.y * height)
+            cx, cy = int(landmark.x * width), int(landmark.y * height)
             joints[j] = [cx, cy]
 
         tocno = 0
@@ -75,7 +74,7 @@ for key, value in videos.items():
         if visibility[i, 8] == 0:
             dt = distance(x[i, 1], y[i, 1], x[i, 2], y[i, 2])  # udaljenost lijevog i desnog ramena
         else:
-            dt = distance(x[i, 1], y[i, 1], x[i, 8], y[i, 8])  # udaljenost lijevog ramena i desnog kuka
+            dt = distance(x[i, 1], y[i, 1], x[i, 8], y[i, 8])  # udaljenost desnog ramena i lijevog kuka
 
         for key1, value1 in joint_match.items():
             if visibility[i, key1] == 0:

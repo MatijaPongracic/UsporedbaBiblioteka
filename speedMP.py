@@ -6,7 +6,8 @@ import time
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode = True, min_detection_confidence = 0.5)
 
-folders = ["baseball", "baseball", "guitar", "jumpingJacks", "bowling", "jumpingRope"]
+folders = ["videos\\baseball", "videos\\baseball", "videos\\guitar",
+           "videos\\jumpingJacks", "videos\\bowling", "videos\\jumpingRope"]
 attempts = 0
 
 for video in folders:
