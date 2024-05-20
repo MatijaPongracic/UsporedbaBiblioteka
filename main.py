@@ -66,8 +66,8 @@ for key, value in videos.items():
 
         for j, landmark in enumerate(results.pose_landmarks.landmark):
             height, width, _ = image.shape
-            cx, cy = int(landmark.x * width), int(landmark.y * height)
-            joints[j] = [cx, cy]
+            xi, yi = landmark.x * width, landmark.y * height
+            joints[j] = [xi, yi]
 
         tocno = 0
         visible_keypoints = 0
@@ -94,6 +94,13 @@ for key, value in videos.items():
             mid_high += 1
         else:
             high += 1
+
+        #for key2, value2 in joint_match.items():
+        #    cv2.circle(image, (int(joints[value2,0]),int(joints[value2,1])), 5, (0, 0, 255), -1)
+        #    cv2.circle(image, (int(x[i, key2]), int(y[i, key2])), 5, (0, 255, 0), -1)
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
     print(key + ":")
     print(f"0%-25%: {low}")

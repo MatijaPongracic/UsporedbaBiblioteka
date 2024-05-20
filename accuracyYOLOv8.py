@@ -91,6 +91,13 @@ for key, value in videos.items():
         else:
             high += 1
 
+        #for key2, value2 in joint_match.items():
+        #    cv2.circle(image, (int(joints[value2,0]),int(joints[value2,1])), 5, (0, 0, 255), -1)
+        #    cv2.circle(image, (int(x[i, key2]), int(y[i, key2])), 5, (0, 255, 0), -1)
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+
     print(key + ":")
     print(f"0%-25%: {low}")
     print(f"25%-50%: {mid_low}")

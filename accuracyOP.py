@@ -1,4 +1,5 @@
 import json
+import cv2
 import os
 import scipy.io
 from math import sqrt
@@ -53,6 +54,7 @@ for key, value in videos.items():
     mid_high = 0
     high = 0
     for i in range(len(frame_files)):
+        image = cv2.imread(os.path.join(key, frame_files[i]))
         with open(os.path.join("OP_data1", json_files.get(key), frame_points[i])) as f:
             data = json.load(f)
 
@@ -82,6 +84,9 @@ for key, value in videos.items():
                 d = distance(x[i, key1], y[i, key1], a, b)
                 if d < tolerance * dt:
                     tocno += 1
+
+                #cv2.circle(image, (int(a), int(b)), 5, (0, 0, 255), -1)
+                #cv2.circle(image, (int(x[i, key1]), int(y[i, key1])), 5, (0, 255, 0), -1)
         PDJ = float(tocno / visible_keypoints)
 
         if PDJ < 0.25:
@@ -92,6 +97,10 @@ for key, value in videos.items():
             mid_high += 1
         else:
             high += 1
+
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
     print(key + ":")
     print(f"0%-25%: {low}")
