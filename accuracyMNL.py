@@ -12,6 +12,7 @@ interpreter = tf.lite.Interpreter(model_path = "3.tflite")
 interpreter.allocate_tensors()
 
 tolerance = 0.1
+threshold = 0.3
 videos = {"videos\\baseball":"matdata\\0005.mat",
           "videos\\jumpingJacks":"matdata\\1083.mat",
           "videos\\guitar":"matdata\\1951.mat",
@@ -63,7 +64,7 @@ for key, value in videos.items():
         keypoints_with_scores = interpreter.get_tensor(output_details[0]["index"])
         joints = keypoints_with_scores.reshape(17,3)
         for j in range(joints.shape[0]):
-            if joints[j,2] < 0.1:
+            if joints[j,2] < threshold:
                 joints[j,0] = 0
                 joints[j,1] = 0
         height, width, _ = image_rgb.shape
