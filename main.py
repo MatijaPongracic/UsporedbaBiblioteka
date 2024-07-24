@@ -60,14 +60,15 @@ for key, value in videos.items():
         try:
             num_keypoints = len(results.pose_landmarks.landmark)
             joints = np.zeros((num_keypoints, 2))
+
+            for j, landmark in enumerate(results.pose_landmarks.landmark):
+                height, width, _ = image.shape
+                xi, yi = landmark.x * width, landmark.y * height
+                joints[j] = [xi, yi]
+
         except:
             low += 1
             continue
-
-        for j, landmark in enumerate(results.pose_landmarks.landmark):
-            height, width, _ = image.shape
-            xi, yi = landmark.x * width, landmark.y * height
-            joints[j] = [xi, yi]
 
         tocno = 0
         visible_keypoints = 0
