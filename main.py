@@ -11,7 +11,7 @@ def distance(x1, y1, x2, y2):
     return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 mp_pose = mp.solutions.pose
-pose_model = mp_pose.Pose(static_image_mode = True, min_detection_confidence = 0.5)
+pose_model = mp_pose.Pose(static_image_mode = False, min_detection_confidence = 0.5)
 
 tolerance = 0.1
 videos = {"videos\\baseball":"matdata\\0005.mat",

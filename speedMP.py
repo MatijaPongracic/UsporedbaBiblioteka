@@ -4,7 +4,7 @@ import mediapipe as mp
 import time
 
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(static_image_mode = True, min_detection_confidence = 0.5)
+pose = mp_pose.Pose(static_image_mode = False, min_detection_confidence = 0.5)
 
 folders = ["videos\\baseball", "videos\\baseball", "videos\\guitar",
            "videos\\jumpingJacks", "videos\\bowling", "videos\\jumpingRope"]
