@@ -20,6 +20,8 @@ json_files = {"videos\\baseball":"OP_baseball",
               "videos\\bowling":"OP_bowling",
               "videos\\jumpingRope":"OP_jumpingRope"}
 
+wrong_person_frames = [40, 42, 43]
+
 for key, value in videos.items():
     mat_file_path = value
     mat_data = scipy.io.loadmat(mat_file_path)
@@ -65,15 +67,20 @@ for key, value in videos.items():
         else:
             dt = distance(x[i, 1], y[i, 1], x[i, 8], y[i, 8])  # udaljenost desnog ramena i lijevog kuka
 
+        if key == "videos\\baseball" and i in wrong_person_frames:
+            index = 1
+        else:
+            index = 0
+
         for key1, value1 in joint_match.items():
             if visibility[i, key1] == 0:
                 continue  # Ako je tocka nevidljiva, ne racuna se
             else:
                 visible_keypoints += 1
                 try:
-                    a = data['people'][0]['pose_keypoints_2d'][value1 * 3]
-                    b = data['people'][0]['pose_keypoints_2d'][value1 * 3 + 1]
-                    c = data['people'][0]['pose_keypoints_2d'][value1 * 3 + 2]
+                    a = data['people'][index]['pose_keypoints_2d'][value1 * 3]
+                    b = data['people'][index]['pose_keypoints_2d'][value1 * 3 + 1]
+                    c = data['people'][index]['pose_keypoints_2d'][value1 * 3 + 2]
                 except:  # ukoliko nijedan zglob nije prepoznat
                     a = 0.0
                     b = 0.0
@@ -85,8 +92,8 @@ for key, value in videos.items():
                 if d < tolerance * dt:
                     tocno += 1
 
-                #cv2.circle(image, (int(a), int(b)), 5, (0, 0, 255), -1)
-                #cv2.circle(image, (int(x[i, key1]), int(y[i, key1])), 5, (0, 255, 0), -1)
+                # cv2.circle(image, (int(a), int(b)), 5, (0, 0, 255), -1)
+                # cv2.circle(image, (int(x[i, key1]), int(y[i, key1])), 5, (0, 255, 0), -1)
         PDJ = float(tocno / visible_keypoints)
 
         if PDJ < 0.25:
@@ -98,9 +105,9 @@ for key, value in videos.items():
         else:
             high += 1
 
-        #cv2.imshow("Image", image)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
+        # cv2.imshow("Image", image)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
     print(key + ":")
     print(f"0%-25%: {low}")

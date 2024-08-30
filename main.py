@@ -10,9 +10,6 @@ from math import sqrt
 def distance(x1, y1, x2, y2):
     return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-mp_pose = mp.solutions.pose
-pose_model = mp_pose.Pose(static_image_mode = False, min_detection_confidence = 0.5)
-
 tolerance = 0.1
 videos = {"videos\\baseball":"matdata\\0005.mat",
           "videos\\jumpingJacks":"matdata\\1083.mat",
@@ -21,6 +18,8 @@ videos = {"videos\\baseball":"matdata\\0005.mat",
           "videos\\jumpingRope":"matdata\\0989.mat"}
 
 for key, value in videos.items():
+    mp_pose = mp.solutions.pose
+    pose_model = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5)
     mat_file_path = value
     mat_data = scipy.io.loadmat(mat_file_path)
 
@@ -109,4 +108,4 @@ for key, value in videos.items():
     print(f"50%-75%: {mid_high}")
     print(f"75%-100%: {high}\n")
 
-pose_model.close()
+    pose_model.close()

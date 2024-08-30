@@ -85,8 +85,8 @@ for key, value in videos.items():
                 if d < tolerance * dt:
                     tocno += 1
 
-                #cv2.circle(image, (int(a), int(b)), 5, (0, 0, 255), -1)
-                #cv2.circle(image, (int(x[i, key1]), int(y[i, key1])), 5, (0, 255, 0), -1)
+                # cv2.circle(image, (int(a), int(b)), 5, (0, 0, 255), -1)
+                # cv2.circle(image, (int(x[i, key1]), int(y[i, key1])), 5, (0, 255, 0), -1)
         PDJ = float(tocno / visible_keypoints)
 
         if PDJ < 0.25:
@@ -98,9 +98,9 @@ for key, value in videos.items():
         else:
             high += 1
 
-        #cv2.imshow("Image", image)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
+        # cv2.imshow("Image", image)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
     print(key + ":")
     print(f"0%-25%: {low}")
