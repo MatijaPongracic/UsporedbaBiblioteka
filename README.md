@@ -6,4 +6,4 @@ U repozitoriju se nalaze kôdovi korišteni u završnom radu za usporedbu brzine
 - MoveNet Lightning
 - MoveNet Thunder
 
-Skipte s početnim nazivom "accuracy" testiraju točnost biblioteka, a s početnim nazivom "speed" računaju njihov FPS.
+Skripte s početnim nazivom "accuracy" testiraju točnost biblioteka, a s početnim nazivom "speed" računaju njihov FPS.
